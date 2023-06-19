@@ -35,5 +35,5 @@ const styles = StyleSheet.create({
   },
   loadMoreText: { textAlign: "center", color: colors.white, fontWeight: "700" },
 });
-//https://www.color-meanings.com/wp-content/uploads/shades-of-gray-color-names.png
+
 export default memo(LoadMoreButton);

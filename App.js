@@ -5,7 +5,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { useCallback, useRef, useState } from "react";
-import NewsFeed from "./app/features/NewsFeed";
+import NewsFeed from "./app/features/NewsFeed/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import news from "./news.json";
 

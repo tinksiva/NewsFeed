@@ -1,20 +1,19 @@
 import {
-  StyleSheet,
   Text,
   View,
   FlatList,
-  Platform,
 } from "react-native";
 import { useCallback, useEffect, useState, useRef } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //scale function is used to make the ui responsive
-import { scale, scaleFont } from "../utils/scale";
+import { styles } from "./styles";
+import { scale } from "../../utils/scale";
 
 //Component Imports
-import NewsItem from "../components/NewsItem";
-import LoadMoreButton from "../components/Button";
-import { colors } from "../themes/Colors";
+import NewsItem from "../../components/NewsItem";
+import LoadMoreButton from "../../components/Button";
+
 const getData = async (start, end) => {
   let data;
   try {
@@ -185,28 +184,4 @@ export default function NewsFeed(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.appBackgroundColor,
-    paddingBottom: "1%",
-    flex: 1,
-  },
-  innerElementsContainer: { paddingHorizontal: "2%", flex: 1 },
-  newLisContainer: { flex: 1, marginBottom: "15%" },
-  headLineText: {
-    textAlign: "center",
-    color: colors.white,
-    fontWeight: "bold",
-    fontFamily: Platform.OS==="ios" ? "Times New Roman" : "serif",
-    fontSize: scaleFont(18),
-    marginTop: scale(28),
-  },
-  headerContainer: {
-    height: "8%",
-    alignItems: "center",
-    width: "100%",
-    backgroundColor: colors.black,
-  },
-  emptyComponentStyles :{justifyContent:"center", alignItems:"center", alignSelf:"center"},
-  emptyText: {textAlign:"center"},
-});
+
