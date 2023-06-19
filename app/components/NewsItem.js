@@ -3,7 +3,7 @@ import { Swipeable } from "react-native-gesture-handler";
 import { memo, useCallback } from "react";
 
 //scale function is used to make the ui responsive
-import { scale } from "../utils/scale";
+import { scale, scaleFont } from "../utils/scale";
 import { globalStyles } from "../utils/globalStyles";
 import { colors } from "../themes/Colors";
 const fallbackUrl =
@@ -95,13 +95,13 @@ const styles = StyleSheet.create({
   },
   newsTitleText: {
     fontWeight: "700",
-    fontSize: 12.5,
+    fontSize: scaleFont(12.5),
     flexWrap: "wrap",
     marginBottom: scale(1.5),
   },
   newsDescriptionText: {
     flexShrink: 1,
-    fontSize: 11,
+    fontSize: scaleFont(11),
     color: colors.descriptionGrey,
     flexWrap: "wrap",
     textAlign: "left",

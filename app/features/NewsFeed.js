@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState, useRef } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //scale function is used to make the ui responsive
-import { scale } from "../utils/scale";
+import { scale, scaleFont } from "../utils/scale";
 
 //Component Imports
 import NewsItem from "../components/NewsItem";
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: "bold",
     fontFamily: Platform.OS==="ios" ? "Times New Roman" : "serif",
-    fontSize: 18,
+    fontSize: scaleFont(18),
     marginTop: scale(28),
   },
   headerContainer: {
