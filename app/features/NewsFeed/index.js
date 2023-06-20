@@ -82,10 +82,7 @@ export default function NewsFeed(props) {
 
   //For deleteing an item
   const deleteItem = useCallback((id) => {
-    if (
-      pinnedElementRef.current !== null &&
-      pinnedElementRef.current.id === id
-    ) {
+    if (pinnedElementRef.current && pinnedElementRef.current.id === id) {
       setPinnedElement(null);
       pinnedElementRef.current = null;
       return;
@@ -182,7 +179,7 @@ export default function NewsFeed(props) {
           windowSize={15}
           getItemLayout={newsItemLayout}
         />
-        <LoadMoreButton loadMore={loadMore} />
+        {feed.length > 0 && <LoadMoreButton loadMore={loadMore} />}
       </View>
     </View>
   );

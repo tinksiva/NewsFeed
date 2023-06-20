@@ -31,6 +31,9 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
+    width: "100%",
+    height: "100%",
+    flex: 1,
   },
-  emptyText: { textAlign: "center" },
+  emptyText: { textAlign: "center", alignSelf: "center", marginTop: "50%" },
 });

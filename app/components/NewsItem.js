@@ -56,10 +56,7 @@ function NewsItem(props) {
       <View style={styles.container}>
         <Image
           source={{
-            uri:
-              image === "None"
-                ? fallbackUrl
-                : image,
+            uri: image === "None" ? fallbackUrl : image,
           }}
           style={{
             aspectRatio: 1,
@@ -69,6 +66,13 @@ function NewsItem(props) {
           }}
           resizeMode="contain"
         />
+        {isPinned && (
+          <Image
+            source={require("../../assets/pin.jpeg")}
+            style={deletePinStyles.pinImage}
+            resizeMode={"contain"}
+          />
+        )}
         <View style={styles.titleDescriptionContainer}>
           <Text style={styles.newsTitleText}>{title}</Text>
           <Text numberOfLines={7} style={styles.newsDescriptionText}>
@@ -132,6 +136,14 @@ const deletePinStyles = StyleSheet.create({
     marginVertical: "2%",
     borderRadius: scale(10),
     overflow: "hidden",
+  },
+  pinImage: {
+    position: "absolute",
+    top: scale(3),
+    right: scale(3),
+    height: scale(12),
+    width: scale(12),
+    zIndex: 2,
   },
 });
 
