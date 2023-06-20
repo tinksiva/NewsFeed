@@ -1,8 +1,4 @@
-import {
-  Text,
-  View,
-  FlatList,
-} from "react-native";
+import { Text, View, FlatList } from "react-native";
 import { useCallback, useEffect, useState, useRef } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -39,6 +35,11 @@ export default function NewsFeed(props) {
       return;
     }
     getData(page.current, page.current + offset).then((resp) => {
+      if (resp === null || resp.length === 0) {
+        //Stopping the timer if we run out of news
+        clearInterval(timerId.current);
+        return;
+      }
       setFeed((previousFeed) => [...resp, ...previousFeed]);
     });
     page.current = page.current + offset;
@@ -85,7 +86,6 @@ export default function NewsFeed(props) {
       pinnedElementRef.current !== null &&
       pinnedElementRef.current.id === id
     ) {
-      console.log("in here");
       setPinnedElement(null);
       pinnedElementRef.current = null;
       return;
@@ -136,24 +136,28 @@ export default function NewsFeed(props) {
   let ListEmptyComponent = useCallback(
     () => (
       <View style={styles.emptyComponentStyles}>
-        <Text style={styles.emptyText}>{"Please Wait while we fetch the latest news for you"}</Text>
+        <Text style={styles.emptyText}>
+          {"Please Wait while we fetch the latest news for you"}
+        </Text>
       </View>
     ),
     []
   );
 
   //for optimising flatlist performance
-  const newsItemLayout = useCallback((_, index) => ({
-    length: scale(135), 
-    offset: scale(135) * (index),  
-    index,
-  }), [])
+  const newsItemLayout = useCallback(
+    (_, index) => ({
+      length: scale(135),
+      offset: scale(135) * index,
+      index,
+    }),
+    []
+  );
 
-  console.log("FEED LENGTH", feed.length);
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.headLineText}>Today's Headlines</Text>
+        <Text style={styles.headLineText}>{"Headlines"}</Text>
       </View>
       <View style={styles.innerElementsContainer}>
         {pinnedElement !== null ? (
@@ -183,5 +187,3 @@ export default function NewsFeed(props) {
     </View>
   );
 }
-
-
