@@ -17,13 +17,14 @@ export default function NewsFeed(props) {
     feed,
     pinnedElement,
     showLoadMore,
+    error,
     pinItem,
     unPinItem,
     deleteItem,
     loadMore,
   } = useCustomHookForNewsFeed(props);
 
-  //For rendering the headlines. 
+  //For rendering the headlines.
   let renderItem = useCallback(
     (newsItemProps) => (
       <NewsItem {...newsItemProps} deleteItem={deleteItem} pinItem={pinItem} />
@@ -58,7 +59,7 @@ export default function NewsFeed(props) {
           data={feed}
           renderItem={renderItem}
           keyExtractor={(item, index) => item.id}
-          ListEmptyComponent={<EmptyList />}
+          ListEmptyComponent={<EmptyList error={error} />}
           style={styles.newLisContainer}
           extraData={feed}
           initialNumToRender={7}

@@ -5,6 +5,7 @@ import { getDataFromAsync } from "../../utils/utils";
 //Separating Concerns using React Custom Hooks. Instead of crowding the presentational component with buisness logic, seperated them into a custom hook to declutter it
 export function useCustomHookForNewsFeed(props) {
   const [feed, setFeed] = useState([]);
+  const [error, setError] = useState(false);
   const page = useRef(0);
   const [pinnedElement, setPinnedElement] = useState(null);
   const [showLoadMore, setLoadMore] = useState(true);
@@ -55,11 +56,13 @@ export function useCustomHookForNewsFeed(props) {
             //If we still get response from api indicating there is more news to show
             fetchData(offset);
             setTimer();
+            setError(false);
           } else {
             //If we dont get any response from the api , it inidicates we have displayed all the news. we clear the timer and hide the load more button
             Toast.show("All the latest technology news have been loaded", {
               duration: Toast.durations.LONG,
             });
+            setError(true);
             setLoadMore(false);
             clearTimer();
           }
@@ -148,6 +151,7 @@ export function useCustomHookForNewsFeed(props) {
     feed,
     pinnedElement,
     showLoadMore,
+    error,
     pinItem: pinItem,
     unPinItem: unPinItem,
     deleteItem: deleteItem,

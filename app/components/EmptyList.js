@@ -2,10 +2,13 @@ import { StyleSheet, Text, View } from "react-native";
 import { memo } from "react";
 
 function EmptyList(props) {
+  const { error } = props;
   return (
     <View style={styles.emptyComponentStyles}>
       <Text style={styles.emptyText}>
-        {"Please Wait while we fetch the latest news for you"}
+        {error
+          ? "Looks like something is wrong. Please try again after sometime"
+          : "Please Wait while we fetch the latest news for you"}
       </Text>
     </View>
   );

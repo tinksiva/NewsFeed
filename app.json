@@ -19,12 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/splashLogo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.tinksiva.NewsFeed"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "10618cb0-245d-49bb-822a-d69bdb82298a"
+      }
     }
   }
 }

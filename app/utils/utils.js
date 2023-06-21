@@ -1,10 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import news from "../../news.json";
-import { NEWS_API_KEY, NEWS_API } from '@env';
+import { NEWS_API_KEY, NEWS_API } from "@env";
 
-// import { MMKV } from 'react-native-mmkv'
-
-// export const storage = new MMKV()
 export const storeDataLocally = async (value) => {
   //Stores the data fetched from news api into the local storage using the key "news"
   try {
@@ -21,8 +18,6 @@ export const fetchAndStoreInAsync = async (setLoading, page) => {
   var url =
     NEWS_API +
     new URLSearchParams({
-      language: "value",
-      bar: 2,
       language: "en",
       category: "technology",
       apiKey: NEWS_API_KEY,
@@ -34,18 +29,18 @@ export const fetchAndStoreInAsync = async (setLoading, page) => {
   //   "https://api.currentsapi.services/v1/search?language=en&category=technology&apiKey=IObvAhu35l2ju4qFNO3Bo7CBdu34VXGRphVGnAru71isn5X-&page_size=100&limit=100&page_number=" +
   //   page;
 
-    var req = new Request(url);
-    try {
-      let response = await fetch(req);
-      let data = await response.json();
-      await storeDataLocally(data);
-      setLoading(false);
-      return true;
-    } catch (error) {
-      console.log("ERROR", error);
-      setLoading(false);
-      return false;
-    }
+  var req = new Request(url);
+  try {
+    let response = await fetch(req);
+    let data = await response.json();
+    await storeDataLocally(data);
+    setLoading(false);
+    return true;
+  } catch (error) {
+    console.log("ERROR", error);
+    setLoading(false);
+    return false;
+  }
 
   //For Testing Purposes
   // await storeDataLocally(news);
