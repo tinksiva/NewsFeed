@@ -25,9 +25,6 @@ export const fetchAndStoreInAsync = async (setLoading, page) => {
       limit: 100,
       page_number: page,
     });
-  // var url =
-  //   "https://api.currentsapi.services/v1/search?language=en&category=technology&apiKey=IObvAhu35l2ju4qFNO3Bo7CBdu34VXGRphVGnAru71isn5X-&page_size=100&limit=100&page_number=" +
-  //   page;
 
   var req = new Request(url);
   try {
