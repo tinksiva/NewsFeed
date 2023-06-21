@@ -42,13 +42,14 @@ export const fetchAndStoreInAsync = async (setLoading, page) => {
     return false;
   }
 
-  //For Testing Purposes
+  // For Testing Purposes
   // await storeDataLocally(news);
   // setLoading(false);
   // return true;
 };
 
 export const getDataFromAsync = async (start, end) => {
+  //We fetch the data that we have stored in the local storage and return it to the component for use
   let data;
   try {
     data = JSON.parse(await AsyncStorage.getItem("news"));

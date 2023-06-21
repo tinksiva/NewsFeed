@@ -32,9 +32,10 @@ function NewsItem(props) {
     <Swipeable renderRightActions={deletePinUnpin}>
       <View style={styles.container}>
         <Image
+          // If there is no image, or if the api itself returns "None" as a response for an image we show the fallback image
           source={{
             uri:
-              (image === "None" || !image || image === undefined)
+              image === "None" || !image || image === undefined
                 ? fallbackUrl
                 : image,
           }}
@@ -43,11 +44,13 @@ function NewsItem(props) {
         />
         {isPinned && (
           <Image
+            // Displays a small pin at the top right corner if an news item is pinned
             source={require("../../assets/pin.jpeg")}
             style={styles.pinImage}
             resizeMode={"contain"}
           />
         )}
+        {/* Displays the title and description for an news item */}
         <View style={styles.titleDescriptionContainer}>
           <Text style={styles.newsTitleText}>{title}</Text>
           <Text numberOfLines={7} style={styles.newsDescriptionText}>
@@ -108,7 +111,8 @@ const styles = StyleSheet.create({
   },
 });
 
-//For optimising flatlist performance
+//For optimising flatlist performance. Instead of re rendering the component every time we rerender only when the id changes
+//This will happen only when its a new component or when we pin or delete an item
 function arePropsEqual(prevNews, currentNews) {
   return prevNews.item.id === currentNews.item.id;
 }

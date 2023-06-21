@@ -5,6 +5,7 @@ import { fetchAndStoreInAsync } from "../../utils/utils";
 import { globalStyles } from "../../utils/globalStyles";
 
 export default function NewsWrapper() {
+  //loading is an indicator to display the indicator while we fetch the data
   const [loading, setLoading] = useState(false);
   const page = useRef(1);
   const refetch = useCallback(async () => {

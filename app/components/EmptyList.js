@@ -3,6 +3,7 @@ import { memo } from "react";
 
 function EmptyList(props) {
   const { error } = props;
+  //Displays when the list is empty either while fetching or due to an error
   return (
     <View style={styles.emptyComponentStyles}>
       <Text style={styles.emptyText}>
@@ -19,11 +20,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    width: "100%",
+    width: "60%",
     height: "100%",
     flex: 1,
   },
-  emptyText: { textAlign: "center", alignSelf: "center", marginTop: "50%" },
+  emptyText: { textAlign: "center", alignSelf: "center" },
 });
 
 export default memo(EmptyList);

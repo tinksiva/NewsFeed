@@ -11,6 +11,7 @@ import EmptyList from "../../components/EmptyList";
 //scale function is used to make the ui responsive
 import { styles } from "./styles";
 import { scale } from "../../utils/scale";
+import { globalStyles } from "../../utils/globalStyles";
 
 export default function NewsFeed(props) {
   const {
@@ -47,6 +48,7 @@ export default function NewsFeed(props) {
         <Text style={styles.headLineText}>{"Headlines"}</Text>
       </View>
       <View style={styles.innerElementsContainer}>
+        {/* This is for displaying the pinned element and sticking it to the top, without having to reload the list*/}
         {pinnedElement !== null ? (
           <NewsItem
             item={pinnedElement}
@@ -55,12 +57,15 @@ export default function NewsFeed(props) {
             isPinned={true}
           />
         ) : null}
+
+        {/* removeClippedSubviews, maxToRenderPerBatch, windowSize, getItemLayout are given to optimise flatlist performance*/}
         <FlatList
           data={feed}
           renderItem={renderItem}
           keyExtractor={(item, index) => item.id}
           ListEmptyComponent={<EmptyList error={error} />}
           style={styles.newLisContainer}
+          contentContainerStyle={feed.length === 0 ? globalStyles.flex1 : {}}
           extraData={feed}
           initialNumToRender={7}
           removeClippedSubviews={true}
@@ -68,6 +73,7 @@ export default function NewsFeed(props) {
           windowSize={15}
           getItemLayout={newsItemLayout}
         />
+        {/* Displayes the load more button only when there is more content in the async storage to show*/}
         {feed.length > 0 && showLoadMore && (
           <LoadMoreButton loadMore={loadMore} />
         )}

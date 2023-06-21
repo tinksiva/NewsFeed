@@ -6,13 +6,7 @@ import { scale, scaleFont } from "../utils/scale";
 import { colors } from "../themes/Colors";
 
 function DeleteAndPin(props) {
-  const {
-    id,
-    deleteItem,
-    pinItem,
-    unPinItem,
-    isPinned = false,
-  } = props;
+  const { id, deleteItem, pinItem, unPinItem, isPinned = false } = props;
 
   //Component that displays the delete and pin options
   const pinUnpin = useCallback(() => {
@@ -21,34 +15,34 @@ function DeleteAndPin(props) {
     } else {
       pinItem(id);
     }
-  }, [])
+  }, []);
   const deleteNews = useCallback(() => {
     deleteItem(id, isPinned);
-  }, [])
+  }, []);
   return (
     <View style={deletePinStyles.rightSwipeItemsContainer}>
-        <TouchableOpacity
-          style={[
-            deletePinStyles.deletePinContainer,
-            deletePinStyles.deleteColor,
-          ]}
-          onPress={deleteNews}
-        >
-          <Text style={deletePinStyles.deletePinText}>{"Delete"}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[deletePinStyles.deletePinContainer, deletePinStyles.pinColor]}
-          onPress={pinUnpin}
-        >
-          <Text style={deletePinStyles.deletePinText}>
-            {isPinned ? "UnPin" : "Pin"}
-          </Text>
-        </TouchableOpacity>
-      </View>
+      {/* We call the delete item function on press of delete button*/}
+      <TouchableOpacity
+        style={[
+          deletePinStyles.deletePinContainer,
+          deletePinStyles.deleteColor,
+        ]}
+        onPress={deleteNews}
+      >
+        <Text style={deletePinStyles.deletePinText}>{"Delete"}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[deletePinStyles.deletePinContainer, deletePinStyles.pinColor]}
+        onPress={pinUnpin}
+      >
+        {/* If the item is already pinned we show unpin as an option and if the item is not pined we show pin as an option*/}
+        <Text style={deletePinStyles.deletePinText}>
+          {isPinned ? "UnPin" : "Pin"}
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 }
-
-
 
 const deletePinStyles = StyleSheet.create({
   deletePinContainer: {

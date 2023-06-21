@@ -17,7 +17,6 @@
     "react-native": "0.71.8",
     "react-native-dotenv": "^3.4.9",
     "react-native-gesture-handler": "~2.9.0",
-    "react-native-mmkv": "^2.9.0",
     "react-native-root-toast": "^3.4.1"
   },
   "devDependencies": {

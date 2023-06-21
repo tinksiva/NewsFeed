@@ -5,6 +5,7 @@ import { scale, scaleFont } from "../../utils/scale";
 
 import { colors } from "../../themes/Colors";
 import { fontFamily } from "../../themes/FontFamily";
+
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.appBackgroundColor,

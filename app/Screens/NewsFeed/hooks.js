@@ -1,6 +1,7 @@
 import NetInfo from "@react-native-community/netinfo";
 import { useCallback, useEffect, useState, useRef } from "react";
 import { getDataFromAsync } from "../../utils/utils";
+import Toast from "react-native-root-toast";
 
 //Separating Concerns using React Custom Hooks. Instead of crowding the presentational component with buisness logic, seperated them into a custom hook to declutter it
 export function useCustomHookForNewsFeed(props) {
@@ -12,6 +13,7 @@ export function useCustomHookForNewsFeed(props) {
   const pinnedElementRef = useRef(null);
   const netinfoSubscription = useRef(null);
   const timerId = useRef(null);
+  const currentData = useRef(null);
 
   const { refetch } = props;
 
@@ -22,70 +24,90 @@ export function useCustomHookForNewsFeed(props) {
       pageZeroRefetch();
       return;
     }
-    getDataFromAsync(page.current, page.current + offset).then((resp) => {
-      if (resp === null || resp.length === 0) {
-        //Stopping the timer if we run out of news
-        clearInterval(timerId.current);
-        return;
-      }
-      setFeed((previousFeed) => [...resp, ...previousFeed]);
-    });
+    //Slices the current slice of data from the original 100 fetched from local storage to refresh the app
+    let currentSlice = currentData.current.slice(
+      page.current,
+      page.current + offset
+    );
+    if (currentSlice.length === 0) {
+      //When the new batch of data contains less than 100 headlines and when we have exhausted all of them we clear the timer
+      clearInterval(timerId.current);
+      return;
+    }
+    setFeed((previousFeed) => [...currentSlice, ...previousFeed]);
+
+    //Addjusting the offset for the next fetch
     page.current = page.current + offset;
   }, []);
 
-  //For the timer for fetching data batches of 5 every 10 seconds
+  //Fetch the news from local storage to the component data
+  const getDataFromAsyncAndStoreItInLocal = useCallback(async () => {
+    let resp = await getDataFromAsync(0, 100);
+
+    if (resp === null || resp.length === 0) {
+      //Stopping the timer if we run out of news
+      clearInterval(timerId.current);
+      return false;
+    } else {
+      //Storing the headlines fetched from local storage into the component for ease of access
+      //This also minimises having to fetch from local storage repeatedly
+      currentData.current = resp;
+      return true;
+    }
+  }, []);
+
+  //For the timer for fetching data in batches of 5 every 10 seconds
   const setTimer = useCallback(() => {
     timerId.current = setInterval(() => {
       fetchData(5);
     }, 10000);
   }, []);
 
-  const clearTimer = useCallback(() => {
-    clearInterval(timerId.current);
-  }, []);
-
   //For refreshing the content in the local storage when we have displayed all 100 news or shown zero news
   const pageZeroRefetch = useCallback((offset = 5) => {
-    clearTimer();
+    clearInterval(timerId.current);
     page.current = 0;
     NetInfo.fetch().then((state) => {
       //We check if the application is connected to the internet before we fetch the next batch of news. If proceed only if it is connected
       if (state.isConnected) {
         refetch().then((resp) => {
           if (resp) {
-            //If we still get response from api indicating there is more news to show
-            fetchData(offset);
-            setTimer();
-            setError(false);
+            //If we still get response from api indicating there is more news to show and when we have successfully stored it the async storage
+            getDataFromAsyncAndStoreItInLocal().then((aysncStorageResp) => {
+              if (aysncStorageResp) {
+                //Fetched the response from async storage to reference variable. We fetch the first 10 data and we start the timer again
+                fetchData(offset);
+                setTimer();
+                setError(false);
+              } else {
+                //If there is an error in fetching from the local storage we clear the timer and set the error
+                clearInterval(timerId.current);
+                setError(true);
+                setLoadMore(false);
+              }
+            });
           } else {
             //If we dont get any response from the api , it inidicates we have displayed all the news. we clear the timer and hide the load more button
-            Toast.show("All the latest technology news have been loaded", {
-              duration: Toast.durations.LONG,
-            });
+            currentData?.current?.length > 0 &&
+              Toast.show("All the latest technology news have been loaded", {
+                duration: Toast.durations.LONG,
+              });
             setError(true);
             setLoadMore(false);
-            clearTimer();
+            clearInterval(timerId.current);
           }
         });
       } else {
-        //If the application is not connected to the internet we add a listener and wait till the internet is back. once its back we stop the listener and start the timer
+        //If the application is not connected to the internet we add a listener and wait till the internet is back. once its back we start the timer again
         Toast.show(
           "Sorry, Looks like your internet is gone. You would still be able to browse through the available news",
           {
             duration: Toast.durations.LONG,
           }
         );
+        setError(true);
         setLoadMore(false);
-        netinfoSubscription.current = NetInfo.addEventListener((state) => {
-          if (state.isConnected && !showLoadMore) {
-            Toast.show("Connected to the internet again!", {
-              duration: Toast.durations.LONG,
-            });
-            netinfoSubscription.current();
-            pageZeroRefetch();
-            setLoadMore(true);
-          }
-        });
+        clearInterval(timerId.current);
       }
     });
   }, []);
@@ -94,14 +116,31 @@ export function useCustomHookForNewsFeed(props) {
   useEffect(() => {
     pageZeroRefetch(10);
     return () => {
-      clearTimer();
-      netinfoSubscription?.current && netinfoSubscription.current();
+      clearInterval(timerId.current);
     };
   }, []);
 
+  useEffect(() => {
+    netinfoSubscription.current = NetInfo.addEventListener((state) => {
+      if (state.isConnected && error) {
+        Toast.show("Connected to the internet again!", {
+          duration: Toast.durations.LONG,
+        });
+        setError(false);
+        pageZeroRefetch();
+        setLoadMore(true);
+      } else if (!state.isConnected) {
+        setError(true);
+      }
+    });
+    return () => {
+      netinfoSubscription?.current && netinfoSubscription.current();
+    };
+  }, [error]);
+
   //For the user to load More news manually skipping the timer. we stop the timer. fetch and display the news and reset the timer again
   const loadMore = useCallback(() => {
-    clearTimer();
+    clearInterval(timerId.current);
     fetchData(5);
     setTimer();
   }, []);

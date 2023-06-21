@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../themes/Colors";
 
+//Moved most commonly used styles to global styles to avoid redudancy
 export const globalStyles = StyleSheet.create({
   elevation5: {
     elevation: 5,
