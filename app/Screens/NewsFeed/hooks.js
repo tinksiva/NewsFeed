@@ -10,6 +10,7 @@ export function useCustomHookForNewsFeed(props) {
   const page = useRef(0);
   const [pinnedElement, setPinnedElement] = useState(null);
   const [showLoadMore, setLoadMore] = useState(true);
+  const [isConnected, setIsConnected] = useState(true);
   const pinnedElementRef = useRef(null);
   const netinfoSubscription = useRef(null);
   const timerId = useRef(null);
@@ -32,6 +33,7 @@ export function useCustomHookForNewsFeed(props) {
     if (currentSlice.length === 0) {
       //When the new batch of data contains less than 100 headlines and when we have exhausted all of them we clear the timer
       clearInterval(timerId.current);
+      setLoadMore(false);
       return;
     }
     setFeed((previousFeed) => [...currentSlice, ...previousFeed]);
@@ -66,10 +68,12 @@ export function useCustomHookForNewsFeed(props) {
   //For refreshing the content in the local storage when we have displayed all 100 news or shown zero news
   const pageZeroRefetch = useCallback((offset = 5) => {
     clearInterval(timerId.current);
+    currentData.current=[];
     page.current = 0;
     NetInfo.fetch().then((state) => {
       //We check if the application is connected to the internet before we fetch the next batch of news. If proceed only if it is connected
       if (state.isConnected) {
+        setIsConnected(true)
         refetch().then((resp) => {
           if (resp) {
             //If we still get response from api indicating there is more news to show and when we have successfully stored it the async storage
@@ -79,6 +83,7 @@ export function useCustomHookForNewsFeed(props) {
                 fetchData(offset);
                 setTimer();
                 setError(false);
+                setLoadMore(true);
               } else {
                 //If there is an error in fetching from the local storage we clear the timer and set the error
                 clearInterval(timerId.current);
@@ -98,13 +103,26 @@ export function useCustomHookForNewsFeed(props) {
           }
         });
       } else {
-        //If the application is not connected to the internet we add a listener and wait till the internet is back. once its back we start the timer again
+        //If the application is not connected to the internet we add a listener and wait till the internet is back. once its back we start the timer again and unsubcribe the listener
+        netinfoSubscription.current = NetInfo.addEventListener((state) => {
+          if (state.isConnected) {
+            Toast.show("Connected to the internet again!", {
+              duration: Toast.durations.LONG,
+            });
+            setIsConnected(true)
+            pageZeroRefetch();
+            netinfoSubscription.current()
+          } else if (!state.isConnected) {
+            setError(true);
+          }
+        });
         Toast.show(
-          "Sorry, Looks like your internet is gone. You would still be able to browse through the available news",
+          "Sorry, Looks like your internet is down.",
           {
             duration: Toast.durations.LONG,
           }
         );
+        setIsConnected(false)
         setError(true);
         setLoadMore(false);
         clearInterval(timerId.current);
@@ -117,26 +135,10 @@ export function useCustomHookForNewsFeed(props) {
     pageZeroRefetch(10);
     return () => {
       clearInterval(timerId.current);
+      netinfoSubscription?.current && netinfoSubscription.current();
     };
   }, []);
 
-  useEffect(() => {
-    netinfoSubscription.current = NetInfo.addEventListener((state) => {
-      if (state.isConnected && error) {
-        Toast.show("Connected to the internet again!", {
-          duration: Toast.durations.LONG,
-        });
-        setError(false);
-        pageZeroRefetch();
-        setLoadMore(true);
-      } else if (!state.isConnected) {
-        setError(true);
-      }
-    });
-    return () => {
-      netinfoSubscription?.current && netinfoSubscription.current();
-    };
-  }, [error]);
 
   //For the user to load More news manually skipping the timer. we stop the timer. fetch and display the news and reset the timer again
   const loadMore = useCallback(() => {
