@@ -33,3 +33,7 @@ Technical Details
 - react-native-root-toast is added to show toast messages
 - Although packages like expo-localisation, i18ns, redux, react-query, MMKV could be used , those were not added as they did'nt justify the usage for the given challenge, in addition to keep the app size small
 - For loading more data decided to go with a button instead of pulling up the screen to refresh cause it explicitly gives user that option
+- I havent shown thw splash screen till the api fetches data because inorder to show the user what is it that they are waiting for
+
+Limitations
+- The news api from which I fetch the headlines , is a free api that only allows 600 requests per month for an account. The content we get is also limited
