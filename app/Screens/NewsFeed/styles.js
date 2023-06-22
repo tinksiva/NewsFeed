@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   innerElementsContainer: { paddingHorizontal: "2%", flex: 1 },
-  newLisContainer: { flex: 1, marginBottom: "3%" },
+  newLisContainer: { flex: 1, marginBottom: "12.5%" },
   headLineText: {
     textAlign: "center",
     color: colors.white,

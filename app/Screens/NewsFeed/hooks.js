@@ -11,7 +11,6 @@ export function useCustomHookForNewsFeed(props) {
   const [pinnedElement, setPinnedElement] = useState(null);
   const [showLoadMore, setLoadMore] = useState(true);
   const [isConnected, setIsConnected] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
   const pinnedElementRef = useRef(null);
   const netinfoSubscription = useRef(null);
   const timerId = useRef(null);
@@ -139,11 +138,9 @@ export function useCustomHookForNewsFeed(props) {
 
   //For the user to load More news manually skipping the timer. we stop the timer. fetch and display the news and reset the timer again
   const loadMore = useCallback(() => {
-    setRefreshing(true);
     clearInterval(timerId.current);
     fetchData(5);
     setTimer();
-    setRefreshing(false);
   }, []);
 
   //For deleteing an item. If the item to be deleted is the pinned item we delete it . If not we delete the item to be deleted from the feed
@@ -192,7 +189,6 @@ export function useCustomHookForNewsFeed(props) {
     pinnedElement,
     showLoadMore,
     error,
-    refreshing,
     pinItem: pinItem,
     unPinItem: unPinItem,
     deleteItem: deleteItem,

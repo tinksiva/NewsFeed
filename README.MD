@@ -32,3 +32,4 @@ Technical Details
 - react-native-gesture-handler is added to enable swiping of news item
 - react-native-root-toast is added to show toast messages
 - Although packages like expo-localisation, i18ns, redux, react-query, MMKV could be used , those were not added as they did'nt justify the usage for the given challenge, in addition to keep the app size small
+- For loading more data decided to go with a button instead of pulling up the screen to refresh cause it explicitly gives user that option
