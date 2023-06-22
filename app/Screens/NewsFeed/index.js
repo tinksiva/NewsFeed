@@ -5,7 +5,6 @@ import { useCustomHookForNewsFeed } from "./hooks";
 
 //Component Imports
 import NewsItem from "../../components/NewsItem";
-import LoadMoreButton from "../../components/Button";
 import EmptyList from "../../components/EmptyList";
 
 //scale function is used to make the ui responsive
@@ -19,6 +18,7 @@ export default function NewsFeed(props) {
     pinnedElement,
     showLoadMore,
     error,
+    refreshing,
     pinItem,
     unPinItem,
     deleteItem,
@@ -72,11 +72,10 @@ export default function NewsFeed(props) {
           maxToRenderPerBatch={5}
           windowSize={15}
           getItemLayout={newsItemLayout}
+          refreshing={refreshing}
+          onRefresh={showLoadMore?loadMore:null}
         />
-        {/* Displayes the load more button only when there is more content in the async storage to show*/}
-        {feed.length > 0 && showLoadMore && (
-          <LoadMoreButton loadMore={loadMore} />
-        )}
+        {/* Pulling the list up refreshes the list and populates the next 5 elements */}
       </View>
     </View>
   );

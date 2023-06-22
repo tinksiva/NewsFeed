@@ -11,6 +11,7 @@ export function useCustomHookForNewsFeed(props) {
   const [pinnedElement, setPinnedElement] = useState(null);
   const [showLoadMore, setLoadMore] = useState(true);
   const [isConnected, setIsConnected] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const pinnedElementRef = useRef(null);
   const netinfoSubscription = useRef(null);
   const timerId = useRef(null);
@@ -68,12 +69,12 @@ export function useCustomHookForNewsFeed(props) {
   //For refreshing the content in the local storage when we have displayed all 100 news or shown zero news
   const pageZeroRefetch = useCallback((offset = 5) => {
     clearInterval(timerId.current);
-    currentData.current=[];
+    currentData.current = [];
     page.current = 0;
     NetInfo.fetch().then((state) => {
       //We check if the application is connected to the internet before we fetch the next batch of news. If proceed only if it is connected
       if (state.isConnected) {
-        setIsConnected(true)
+        setIsConnected(true);
         refetch().then((resp) => {
           if (resp) {
             //If we still get response from api indicating there is more news to show and when we have successfully stored it the async storage
@@ -109,20 +110,17 @@ export function useCustomHookForNewsFeed(props) {
             Toast.show("Connected to the internet again!", {
               duration: Toast.durations.LONG,
             });
-            setIsConnected(true)
+            setIsConnected(true);
             pageZeroRefetch();
-            netinfoSubscription.current()
+            netinfoSubscription.current();
           } else if (!state.isConnected) {
             setError(true);
           }
         });
-        Toast.show(
-          "Sorry, Looks like your internet is down.",
-          {
-            duration: Toast.durations.LONG,
-          }
-        );
-        setIsConnected(false)
+        Toast.show("Sorry, Looks like your internet is down.", {
+          duration: Toast.durations.LONG,
+        });
+        setIsConnected(false);
         setError(true);
         setLoadMore(false);
         clearInterval(timerId.current);
@@ -139,12 +137,13 @@ export function useCustomHookForNewsFeed(props) {
     };
   }, []);
 
-
   //For the user to load More news manually skipping the timer. we stop the timer. fetch and display the news and reset the timer again
   const loadMore = useCallback(() => {
+    setRefreshing(true);
     clearInterval(timerId.current);
     fetchData(5);
     setTimer();
+    setRefreshing(false);
   }, []);
 
   //For deleteing an item. If the item to be deleted is the pinned item we delete it . If not we delete the item to be deleted from the feed
@@ -193,6 +192,7 @@ export function useCustomHookForNewsFeed(props) {
     pinnedElement,
     showLoadMore,
     error,
+    refreshing,
     pinItem: pinItem,
     unPinItem: unPinItem,
     deleteItem: deleteItem,
