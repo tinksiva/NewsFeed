@@ -10,7 +10,7 @@ export const storeDataLocally = async (value) => {
     console.log("syncstrot", error);
   }
 };
-export const fetchAndStoreInAsync = async (setLoading, page) => {
+export const fetchFromApi = async (page) => {
   // Fetches the next 100 news from the news api depending on the page number
   // On every fetch we fetch 100 news headlines  under the technology category using our api key
   // The API supports only 600 requests for a free account
@@ -26,16 +26,31 @@ export const fetchAndStoreInAsync = async (setLoading, page) => {
       page_number: page,
     });
 
-  var req = new Request(url);
+  // var req = new Request(url);
+  // try {
+  //   let response = await fetch(req);
+  //   let data = await response.json();
+  //   return data;
+  // } catch (error) {
+  //   console.log("ERROR", error);
+  //   return null;
+  // }
+
+  // For Testing Purposes
+  // await storeDataLocally(news);
+  // setLoading(false);
+  return news;
+};
+export const storeInAsync = async (data) => {
+  // Fetches the next 100 news from the news api depending on the page number
+  // On every fetch we fetch 100 news headlines  under the technology category using our api key
+  // The API supports only 600 requests for a free account
+
   try {
-    let response = await fetch(req);
-    let data = await response.json();
     await storeDataLocally(data);
-    setLoading(false);
     return true;
   } catch (error) {
     console.log("ERROR", error);
-    setLoading(false);
     return false;
   }
 

@@ -1,5 +1,5 @@
 import { Text, View, FlatList } from "react-native";
-import { useCallback } from "react";
+import { useCallback, memo } from "react";
 //Custom Hooks
 import { useCustomHookForNewsFeed } from "./hooks";
 
@@ -13,7 +13,7 @@ import { styles } from "./styles";
 import { scale } from "../../utils/scale";
 import { globalStyles } from "../../utils/globalStyles";
 
-export default function NewsFeed(props) {
+const NewsFeed = function (props) {
   const {
     feed,
     pinnedElement,
@@ -81,3 +81,4 @@ export default function NewsFeed(props) {
     </View>
   );
 }
+export default memo(NewsFeed)

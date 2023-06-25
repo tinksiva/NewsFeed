@@ -1,0 +1,519 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  collapsable={false}
+  forwardedRef={[Function]}
+  handlerTag={1}
+  handlerType="PanGestureHandler"
+  onGestureHandlerEvent={[Function]}
+  onGestureHandlerStateChange={[Function]}
+  onLayout={[Function]}
+  style={
+    {
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    collapsable={false}
+    style={
+      {
+        "bottom": 0,
+        "flexDirection": "row-reverse",
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "transform": [
+          {
+            "translateX": -10000,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "borderRadius": 21.428571428571427,
+          "height": 289.2857142857143,
+          "marginVertical": "2%",
+          "overflow": "hidden",
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "backgroundColor": "#d11a2a",
+            "height": "50%",
+            "justifyContent": "center",
+            "opacity": 1,
+            "paddingHorizontal": "2%",
+            "width": "100%",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "alignSelf": "center",
+              "color": "white",
+            }
+          }
+        >
+          Delete
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "backgroundColor": "#3D7BED",
+            "height": "50%",
+            "justifyContent": "center",
+            "opacity": 1,
+            "paddingHorizontal": "2%",
+            "width": "100%",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "alignSelf": "center",
+              "color": "white",
+            }
+          }
+        >
+          Pin
+        </Text>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+    />
+  </View>
+  <View
+    collapsable={false}
+    forwardedRef={[Function]}
+    handlerTag={2}
+    handlerType="TapGestureHandler"
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    pointerEvents="auto"
+    style={
+      {
+        "transform": [
+          {
+            "translateX": -0,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "white",
+          "borderRadius": 21.428571428571427,
+          "elevation": 5,
+          "flexDirection": "row",
+          "height": 289.2857142857143,
+          "marginHorizontal": "2%",
+          "marginVertical": "2%",
+          "paddingHorizontal": "2%",
+          "paddingVertical": "2%",
+          "shadowColor": "black",
+          "shadowOffset": {
+            "height": 2,
+            "width": 0,
+          },
+          "shadowOpacity": 0.25,
+          "shadowRadius": 3.84,
+          "width": "96%",
+        }
+      }
+    >
+      <Image
+        resizeMode="contain"
+        source={
+          {
+            "uri": "https://images.wsj.net/im-800661/social",
+          }
+        }
+        style={
+          {
+            "aspectRatio": 1,
+            "borderRadius": 21.428571428571427,
+            "height": "100%",
+            "marginRight": "0.5%",
+          }
+        }
+      />
+      <View
+        style={
+          {
+            "alignSelf": "flex-start",
+            "flex": 1,
+            "justifyContent": "flex-start",
+            "marginLeft": "2%",
+            "overflow": "hidden",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "flexWrap": "wrap",
+              "fontSize": 6.25,
+              "fontWeight": "700",
+              "marginBottom": 3.2142857142857144,
+            }
+          }
+        >
+          The Apple Device You Shouldn’t Buy Right Now—and the Ones You Should
+        </Text>
+        <Text
+          numberOfLines={7}
+          style={
+            {
+              "color": "#808080",
+              "flexShrink": 1,
+              "flexWrap": "wrap",
+              "fontSize": 5.5,
+              "textAlign": "left",
+            }
+          }
+        >
+          A guide to which Apple products are in season.
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`renders correctly 2`] = `
+<View
+  collapsable={false}
+  forwardedRef={[Function]}
+  handlerTag={3}
+  handlerType="PanGestureHandler"
+  onGestureHandlerEvent={[Function]}
+  onGestureHandlerStateChange={[Function]}
+  onLayout={[Function]}
+  style={
+    {
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    collapsable={false}
+    style={
+      {
+        "bottom": 0,
+        "flexDirection": "row-reverse",
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "transform": [
+          {
+            "translateX": -10000,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "borderRadius": 21.428571428571427,
+          "height": 289.2857142857143,
+          "marginVertical": "2%",
+          "overflow": "hidden",
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "backgroundColor": "#d11a2a",
+            "height": "50%",
+            "justifyContent": "center",
+            "opacity": 1,
+            "paddingHorizontal": "2%",
+            "width": "100%",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "alignSelf": "center",
+              "color": "white",
+            }
+          }
+        >
+          Delete
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "backgroundColor": "#3D7BED",
+            "height": "50%",
+            "justifyContent": "center",
+            "opacity": 1,
+            "paddingHorizontal": "2%",
+            "width": "100%",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "alignSelf": "center",
+              "color": "white",
+            }
+          }
+        >
+          UnPin
+        </Text>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+    />
+  </View>
+  <View
+    collapsable={false}
+    forwardedRef={[Function]}
+    handlerTag={4}
+    handlerType="TapGestureHandler"
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    pointerEvents="auto"
+    style={
+      {
+        "transform": [
+          {
+            "translateX": -0,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "white",
+          "borderRadius": 21.428571428571427,
+          "elevation": 5,
+          "flexDirection": "row",
+          "height": 289.2857142857143,
+          "marginHorizontal": "2%",
+          "marginVertical": "2%",
+          "paddingHorizontal": "2%",
+          "paddingVertical": "2%",
+          "shadowColor": "black",
+          "shadowOffset": {
+            "height": 2,
+            "width": 0,
+          },
+          "shadowOpacity": 0.25,
+          "shadowRadius": 3.84,
+          "width": "96%",
+        }
+      }
+    >
+      <Image
+        resizeMode="contain"
+        source={
+          {
+            "uri": "https://images.wsj.net/im-800661/social",
+          }
+        }
+        style={
+          {
+            "aspectRatio": 1,
+            "borderRadius": 21.428571428571427,
+            "height": "100%",
+            "marginRight": "0.5%",
+          }
+        }
+      />
+      <Image
+        resizeMode="contain"
+        source={1}
+        style={
+          {
+            "height": 25.714285714285715,
+            "position": "absolute",
+            "right": 6.428571428571429,
+            "top": 6.428571428571429,
+            "width": 25.714285714285715,
+            "zIndex": 2,
+          }
+        }
+      />
+      <View
+        style={
+          {
+            "alignSelf": "flex-start",
+            "flex": 1,
+            "justifyContent": "flex-start",
+            "marginLeft": "2%",
+            "overflow": "hidden",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "flexWrap": "wrap",
+              "fontSize": 6.25,
+              "fontWeight": "700",
+              "marginBottom": 3.2142857142857144,
+            }
+          }
+        >
+          The Apple Device You Shouldn’t Buy Right Now—and the Ones You Should
+        </Text>
+        <Text
+          numberOfLines={7}
+          style={
+            {
+              "color": "#808080",
+              "flexShrink": 1,
+              "flexWrap": "wrap",
+              "fontSize": 5.5,
+              "textAlign": "left",
+            }
+          }
+        >
+          A guide to which Apple products are in season.
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

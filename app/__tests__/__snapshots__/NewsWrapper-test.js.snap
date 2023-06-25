@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<RCTSafeAreaView
+  style={
+    {
+      "backgroundColor": "transparent",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "backgroundColor": "#D3D3D333",
+        "flex": 1,
+        "paddingBottom": "1%",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "black",
+          "height": "8%",
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "white",
+            "fontFamily": "Times New Roman",
+            "fontSize": 9,
+            "fontWeight": "bold",
+            "marginTop": 60,
+            "textAlign": "center",
+          }
+        }
+      >
+        Headlines
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "flex": 1,
+          "paddingHorizontal": "2%",
+        }
+      }
+    >
+      <RCTScrollView
+        ListEmptyComponent={
+          <Memo(EmptyList)
+            error={false}
+          />
+        }
+        contentContainerStyle={
+          {
+            "backgroundColor": "transparent",
+            "flex": 1,
+          }
+        }
+        data={[]}
+        extraData={[]}
+        getItem={[Function]}
+        getItemCount={[Function]}
+        getItemLayout={[Function]}
+        initialNumToRender={7}
+        keyExtractor={[Function]}
+        maxToRenderPerBatch={5}
+        onContentSizeChange={[Function]}
+        onLayout={[Function]}
+        onMomentumScrollBegin={[Function]}
+        onMomentumScrollEnd={[Function]}
+        onScroll={[Function]}
+        onScrollBeginDrag={[Function]}
+        onScrollEndDrag={[Function]}
+        removeClippedSubviews={true}
+        renderItem={[Function]}
+        scrollEventThrottle={50}
+        stickyHeaderIndices={[]}
+        style={
+          {
+            "flex": 1,
+            "marginBottom": "12.5%",
+          }
+        }
+        viewabilityConfigCallbackPairs={[]}
+        windowSize={15}
+      >
+        <View>
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "flex": 1,
+                "height": "100%",
+                "justifyContent": "center",
+                "width": "60%",
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  "alignSelf": "center",
+                  "textAlign": "center",
+                }
+              }
+            >
+              Please Wait while we fetch the latest news for you
+            </Text>
+          </View>
+        </View>
+      </RCTScrollView>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;

@@ -19,10 +19,10 @@ export function useCustomHookForNewsFeed(props) {
   const { refetch } = props;
 
   //For Fetching Data from local storage in batches of 5 except the first batch of 10
-  const fetchData = useCallback((offset) => {
+  const fetchData = useCallback(async (offset) => {
     if (page.current >= 100) {
       //If we have displayed all 100 items we reset the page to zero and proceed to fetch the next batch of headlines from the api
-      pageZeroRefetch();
+      await pageZeroRefetch();
       return;
     }
     //Slices the current slice of data from the original 100 fetched from local storage to refresh the app
@@ -61,12 +61,12 @@ export function useCustomHookForNewsFeed(props) {
   //For the timer for fetching data in batches of 5 every 10 seconds
   const setTimer = useCallback(() => {
     timerId.current = setInterval(() => {
-      fetchData(5);
+      fetchData(5).then();
     }, 10000);
   }, []);
 
   //For refreshing the content in the local storage when we have displayed all 100 news or shown zero news
-  const pageZeroRefetch = useCallback((offset = 5) => {
+  const pageZeroRefetch = useCallback(async (offset = 5) => {
     clearInterval(timerId.current);
     currentData.current = [];
     page.current = 0;
@@ -80,7 +80,7 @@ export function useCustomHookForNewsFeed(props) {
             getDataFromAsyncAndStoreItInLocal().then((aysncStorageResp) => {
               if (aysncStorageResp) {
                 //Fetched the response from async storage to reference variable. We fetch the first 10 data and we start the timer again
-                fetchData(offset);
+                fetchData(offset).then();
                 setTimer();
                 setError(false);
                 setLoadMore(true);
@@ -110,7 +110,7 @@ export function useCustomHookForNewsFeed(props) {
               duration: Toast.durations.LONG,
             });
             setIsConnected(true);
-            pageZeroRefetch();
+            pageZeroRefetch().then(()=>{});
             netinfoSubscription.current();
           } else if (!state.isConnected) {
             setError(true);
@@ -129,7 +129,7 @@ export function useCustomHookForNewsFeed(props) {
 
   //For setting up the timer for the inital render. For fetching the initial news from the api and fror fetch the first 10 headlines
   useEffect(() => {
-    pageZeroRefetch(10);
+    pageZeroRefetch(10).then();
     return () => {
       clearInterval(timerId.current);
       netinfoSubscription?.current && netinfoSubscription.current();
@@ -137,9 +137,9 @@ export function useCustomHookForNewsFeed(props) {
   }, []);
 
   //For the user to load More news manually skipping the timer. we stop the timer. fetch and display the news and reset the timer again
-  const loadMore = useCallback(() => {
+  const loadMore = useCallback(async () => {
     clearInterval(timerId.current);
-    fetchData(5);
+    await fetchData(5);
     setTimer();
   }, []);
 

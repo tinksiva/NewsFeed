@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "alignSelf": "center",
+      "flex": 1,
+      "height": "100%",
+      "justifyContent": "center",
+      "width": "60%",
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "alignSelf": "center",
+        "textAlign": "center",
+      }
+    }
+  >
+    Please Wait while we fetch the latest news for you
+  </Text>
+</View>
+`;
